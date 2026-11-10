@@ -2,28 +2,26 @@
 
 ## Running
 
+From the repository root:
+
 ```sh
-uv run pytest --cov=schema_drift   # tests with coverage report
-uv run python scripts/check.py      # every gate, as CI and the factory run it
+pytest
 ```
+
+The tests are `tests/test_core.py` and `tests/test_cli.py`.
 
 ## Policy
 
-- Branch coverage of `src/schema_drift` must stay at or above 80 %; the gate fails below it.
-- Tests exercise the public API (`import schema_drift`) and assert every observable effect:
-  return values, raised exceptions and their messages.
-- Each bug fix starts with a failing test that reproduces it.
-- Tests are deterministic: no network, no wall clock, no dependence on test order.
+- Tests call the public API (`schema_drift`) and the CLI entry point `schema_drift.__main__.main`.
+- Tests assert observable values: `Profile`/`ColumnProfile` equality, `Drift` fields, `DriftError.code`, CLI output and exit codes.
+- No network access or external services are used by the test files.
 
 ## Tiers
 
-- Local tier (every gate run, coverage measured here): unit and property tests, plus conformance on small
-  fixtures kept in the repository.
-- CI tier: conformance that needs an external tool or a download. Mark them `@pytest.mark.conformance`; `scripts/check.py` deselects them locally
-  (unless `FABRICA_CI=1`). The CI `conformance` job sets `FABRICA_CI=1` and runs the full suite. Tools are installed
-  by the optional `ci/conformance-setup.sh` (bash, CI only; verify every download against a pinned SHA-256), and
-  tagged tests skip cleanly when their tool is missing.
+The repository has one pytest tier: both test modules run directly under pytest. There is no separate conformance marker or external tool installation in the test files.
 
 ## Layout
 
-`tests/test_<module>.py` mirrors each public module. Shared fixtures go in `tests/conftest.py`.
+`tests/test_core.py` covers core profiling and comparison, including the `null_rate` Fraction threshold. Known test names include `test_profile_acceptance`, `test_compare_acceptance`, and `test_null_rate_fraction_threshold`.
+
+`tests/test_cli.py` covers the CLI baseline/check flow, output formatting, exit codes and input errors. Known test names include `test_baseline_and_check`, `test_check_no_drift_exit_zero`, `test_check_low_drift_exit_zero`, and `test_input_error_returns_2`.

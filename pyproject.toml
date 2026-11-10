@@ -19,6 +19,9 @@ classifiers = [
 ]
 dependencies = []
 
+[project.scripts]
+schema-drift = "schema_drift.__main__:main"
+
 [project.urls]
 Homepage = "https://github.com/Trysac/u264-schema-drift"
 Source = "https://github.com/Trysac/u264-schema-drift"
