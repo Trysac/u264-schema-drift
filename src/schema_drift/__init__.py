@@ -1,24 +1,22 @@
-"""
-Detect schema drift between data batches: profile records into a stored JSON baseline and report
-added or removed columns, type changes, null rate jumps, new categories and range breaks
+"""Schema drift detection between data batches.
+
+Profiles records into a stored JSON baseline and compares subsequent batches
+against it using explicit, thresholded rules.
 """
 
 from __future__ import annotations
 
-__all__ = ["__version__", "normalize"]
+from .core import compare, load_jsonl, profile
+from .error import DriftError, DriftErrorCode
+from .model import ColumnProfile, Drift, Profile
 
-__version__ = "0.1.0"
-
-
-def normalize(value: str) -> str:
-    """Return ``value`` trimmed and lower-cased.
-
-    Placeholder API created by the template: replace it with the utility's real behavior.
-
-    Raises:
-        ValueError: if ``value`` is empty or only whitespace.
-    """
-    cleaned = value.strip()
-    if not cleaned:
-        raise ValueError("value must not be empty")
-    return cleaned.lower()
+__all__ = [
+    "ColumnProfile",
+    "Drift",
+    "DriftError",
+    "DriftErrorCode",
+    "Profile",
+    "compare",
+    "load_jsonl",
+    "profile",
+]

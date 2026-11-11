@@ -1,16 +1,17 @@
 # schema-drift
 
-> Detect schema drift between data batches: profile records into a stored JSON baseline and report added or removed columns, type changes, null rate jumps, new categories and range breaks Python package `trysac-schema-drift`, import name `schema_drift`, MIT licensed,
-> Python >= 3.10, no runtime dependencies.
+> Detect schema drift between data batches: profile records into a stored JSON baseline and report added or removed columns, type changes, null rate jumps, new categories and range breaks. Python package `trysac-schema-drift`, import name `schema_drift`, MIT licensed, Python >= 3.10, no runtime dependencies.
 
 ## Docs
 
-- [README](README.md): problem, install, usage example
-- [AGENTS](AGENTS.md): commands, folder map, conventions, limits
-- [Architecture](docs/ARCHITECTURE.md): shape of the package and its public API
-- [Testing](docs/TESTING.md): how to run and extend the tests
+- [README](README.md): problem, installation, usage, public API and limits
+- [Project](docs/PROJECT.md): objective, scope and out-of-scope
+- [Architecture](docs/ARCHITECTURE.md): package structure and design decisions
+- [Testing](docs/TESTING.md): test files and what they cover
+- [Security](docs/SECURITY.md): threat model and real limits
+- [Stack](docs/STACK.md): used and discarded tools
 
 ## Optional
 
 - [Stack](docs/STACK.md): tools used and discarded
-- [Changelog](CHANGELOG.md): release history
+- [Project](docs/PROJECT.md): project record
